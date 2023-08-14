@@ -27,10 +27,10 @@
 		    <version>2.20.125</version>
 		    <scope>provided</scope>
 		</dependency>
-		        <dependency>
+		       <!-- <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>s3</artifactId>
-        </dependency>
+        </dependency> -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

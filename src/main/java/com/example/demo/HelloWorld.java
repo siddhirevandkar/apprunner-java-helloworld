@@ -11,6 +11,14 @@ public class HelloWorld {
         String s = "Hello Citi Team from AWS App Runner. The JDK version is " + System.getProperty("java.version");
         return s;
     }
+    
+    @GetMapping("/s3"){
+    	return "Hello S3";
+    }
+    
+    @GetMapping("/ddb"){
+    	return "Hello Dynamo";
+    }
 
 }
 
