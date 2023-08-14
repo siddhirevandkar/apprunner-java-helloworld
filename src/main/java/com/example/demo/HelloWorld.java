@@ -2,9 +2,16 @@ package com.example.demo;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
+import software.amazon.awssdk.services.dynamodb.model.ListTablesRequest;
+import software.amazon.awssdk.services.dynamodb.model.ListTablesResponse;
+import software.amazon.awssdk.services.dynamodb.model.QueryRequest;
+import software.amazon.awssdk.services.dynamodb.model.QueryResponse;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.ListObjectsRequest;
 import software.amazon.awssdk.services.s3.model.ListObjectsResponse;
@@ -27,6 +34,17 @@ public class HelloWorld {
         .region(region)
         .credentialsProvider(credentialsProvider)
         .build();
+    
+    String tableName = "Music";
+    String partitionAlias = "#a";
+    String partitionKeyName = "Artist";
+    String partitionKeyVal = "AWS Band";
+
+	
+	DynamoDbClient ddb = DynamoDbClient.builder()
+            .credentialsProvider(credentialsProvider)
+            .region(region)
+            .build();
 
 
     @GetMapping("/")
@@ -48,16 +66,41 @@ public class HelloWorld {
             List<String> objectsStr = new ArrayList<String>();
             for (S3Object myValue : objects) {
             	objectsStr.add(myValue.key());
-//                System.out.print("\n The name of the key is " + myValue.key());
-//                System.out.print("\n The object is " + calKb(myValue.size()) + " KBs");
-//                System.out.print("\n The owner is " + myValue.owner());
             }
             return objectsStr;
     }
     
     @GetMapping("/ddb")
-    public String GetItem(){
-    	return "Hello Dynamo";
+    public List<String> GetItem(){
+    	
+    	
+//    	  // Set up an alias for the partition key name in case it's a reserved word.
+//        HashMap<String,String> attrNameAlias = new HashMap<String,String>();
+//        attrNameAlias.put(partitionAlias, partitionKeyName);
+//
+//        // Set up mapping of the partition name with the value.
+//        HashMap<String, AttributeValue> attrValues = new HashMap<>();
+//
+//        attrValues.put(":"+partitionKeyName, AttributeValue.builder()
+//            .s(partitionKeyVal)
+//            .build());
+//
+//        QueryRequest queryReq = QueryRequest.builder()
+//            .tableName(tableName)
+//            .keyConditionExpression(partitionAlias + " = :" + partitionKeyName)
+//            .expressionAttributeNames(attrNameAlias)
+//            .expressionAttributeValues(attrValues)
+//            .build();
+//   
+//            QueryResponse response = ddb.query(queryReq);
+//            System.out.println(response.count());
+    	ListTablesResponse response = null;
+            ListTablesRequest request = ListTablesRequest.builder().build();
+            response = ddb.listTables(request);
+            
+            
+    	return response.tableNames();
+//    	return "Hello Dynamo";
     }
 
 }
