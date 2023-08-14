@@ -12,11 +12,13 @@ public class HelloWorld {
         return s;
     }
     
-    @GetMapping("/s3"){
+    @GetMapping("/s3")
+    public String GetObject(){
     	return "Hello S3";
     }
     
-    @GetMapping("/ddb"){
+    @GetMapping("/ddb")
+    public String GetItem(){
     	return "Hello Dynamo";
     }
 
