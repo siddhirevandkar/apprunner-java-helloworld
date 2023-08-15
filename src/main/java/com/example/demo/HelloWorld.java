@@ -29,10 +29,10 @@ public class HelloWorld {
     Region region = Region.US_EAST_1;
     String bucketName = "apprunner-test-app1-java";
     
-    ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
+   // ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
     S3Client s3 = S3Client.builder()
         .region(region)
-        .credentialsProvider(credentialsProvider)
+      //  .credentialsProvider(credentialsProvider)
         .build();
     
     String tableName = "Music";
@@ -42,7 +42,7 @@ public class HelloWorld {
 
 	
 	DynamoDbClient ddb = DynamoDbClient.builder()
-            .credentialsProvider(credentialsProvider)
+           // .credentialsProvider(credentialsProvider)
             .region(region)
             .build();
 
