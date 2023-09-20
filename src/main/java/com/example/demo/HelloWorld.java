@@ -49,7 +49,7 @@ public class HelloWorld {
 
     @GetMapping("/")
     public String index() {
-        String s = "\"Hello World!\"";
+        String s = "This is a Java App for displaying \"Hello World!\"";
         return s;
     }
     
